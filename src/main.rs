@@ -1,14 +1,33 @@
 use std::{thread, time::Duration};
+use std::io::Write;
 
-fn normal(len: u8, symbl: char){
+fn normal(mut len: usize, symbl: char){
     let mut load : String = String::new();
+    len-= 5 + len.to_string().len();
     for i in 1..len {
-    // load += &String::from(symbl);
-
-    print!("{}",symbl);
-    thread::sleep_ms(400);
+    load += &String::from(symbl);
+    print!("\r{}", load);
+    
+    for _t in i..len{
+        print!(" ");
+    }
+    
+    print!("[ {}",i);
+    
+    for _t in 1..( len.to_string().len() + 2 - i.to_string().len()){
+        print!(" ");
+    }
+    print!("]");
+    std::io::stdout().flush();
+    thread::sleep_ms(10 );
     }
 }
 fn main() {
-    normal(10, '#')
+    if let Some((w, h)) = term_size::dimensions() {
+        println!("Width: {}\nHeight: {}", w, h);
+        normal(w, '#');
+        } else {
+        println!("Unable to get term size :(")
+    }
+    
 }
