@@ -11,13 +11,15 @@ fn normal(mut len: usize, symbl: char){
     for _t in i..len{
         print!(" ");
     }
-    
-    print!("[ {}",i);
-    
+    print!("[");
     for _t in 1..( len.to_string().len() + 2 - i.to_string().len()){
         print!(" ");
     }
-    print!("]");
+    
+    print!("{}",i);
+    
+    
+    print!(" ]");
     std::io::stdout().flush();
     thread::sleep_ms(10 );
     }
